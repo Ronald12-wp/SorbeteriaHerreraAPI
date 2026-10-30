@@ -21,13 +21,15 @@ jobs:
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '10.x'
+          dotnet-version: '8.x'
 
       - name: Build with dotnet
-        run: dotnet build "HerreraSystemAPI/HerreraSystemAPI.slnx" --configuration Release
+        run: dotnet build HerreraSystemAPI.slnx --configuration Release
+        working-directory: 'HerreraSystemAPI'
 
       - name: dotnet publish
-        run: dotnet publish "HerreraSystemAPI/HerreraSystemAPI.csproj" -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        run: dotnet publish HerreraSystem.API.csproj -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        working-directory: 'HerreraSystemAPI'
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -62,4 +64,3 @@ jobs:
           app-name: 'api-herrerasystem'
           slot-name: 'Production'
           package: .
-          
