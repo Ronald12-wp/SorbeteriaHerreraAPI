@@ -28,13 +28,13 @@ jobs:
         working-directory: 'HerreraSystemAPI'
 
       - name: dotnet publish
-        run: dotnet publish HerreraSystem.API.csproj -c Release -o ./publish
+        run: dotnet publish HerreraSystem.API/HerreraSystem.API.csproj -c Release -o ./publish
         working-directory: 'HerreraSystemAPI'
 
       - name: Clean extraneous files
         run: |
-          rm -f *Tests*
-          rm -f *Infrastructure*
+          rm -rf *Tests*
+          rm -rf *Infrastructure*
         working-directory: 'HerreraSystemAPI/publish'
 
       - name: Upload artifact for deployment job
