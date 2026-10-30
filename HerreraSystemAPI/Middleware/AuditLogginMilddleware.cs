@@ -80,22 +80,23 @@ public class AuditLoggingMiddleware
             timer.Stop();
 
             // 3. Obtener información del usuario autenticado.
-            var identidad = context.User?.Identity;
+            var principal = context.User;
+            var identidad = principal?.Identity;
             var autenticado = identidad?.IsAuthenticated == true;
 
             var userId = autenticado
-                ? context.User.FindFirstValue(
-                    ClaimTypes.NameIdentifier)
+                ? principal?.FindFirstValue(ClaimTypes.NameIdentifier)
                     ?? identidad?.Name
+                    ?? "Anonimo"
                 : "Anonimo";
 
             var userName = autenticado
-                ? context.User.FindFirstValue(ClaimTypes.Name)
+                ? principal?.FindFirstValue(ClaimTypes.Name)
                     ?? identidad?.Name
                 : null;
 
             var rol = autenticado
-                ? context.User.FindFirstValue(ClaimTypes.Role)
+                ? principal?.FindFirstValue(ClaimTypes.Role)
                 : null;
 
             // 4. Obtener el estado HTTP y los datos de la solicitud.
