@@ -161,6 +161,7 @@ app.UseMiddleware<AuditLoggingMiddleware>();
 
 
 // Expose API documentation in Azure as well as local development.
+
 app.UseSwagger();
 app.UseSwaggerUI();
 
